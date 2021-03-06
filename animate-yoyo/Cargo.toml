@@ -1,0 +1,9 @@
+[package]
+name = "animate-yoyo"
+version = "0.1.0"
+authors = ["Victor Dudochkin <dudochkin.victor@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+ux-primitives = "0.1"
+ux-animate = { version = "0.1", features = ["cairo"] }

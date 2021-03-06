@@ -1,0 +1,34 @@
+[workspace]
+
+members = [
+  "animate-hello-world",
+  "animate-black-and-red",
+  "animate-graphs",
+  "animate-simplest",
+  "animate-video-and-time",
+  "animate-array-interpolation",
+  "animate-dynamic-to",
+  "animate-repeat",
+  "animate-relative-values",
+  "animate-yoyo",
+  "animate-stop-all-chained-tweens",
+  "animate-graphs-custom-functions",
+  "animate-relative-start-time",
+  "animate-pause-tween",
+  "animate-complex-properties",
+  "animate-an-array-of-values",
+  "bar-chart",
+  "line-chart",
+  "pie-chart",
+  "gauge-chart",
+  "radar-chart",
+]
+
+[patch.crates-io]
+# ux-primitives = { version="0", git = "https://github.com/angular-rust/ux-primitives.git" }
+# ux-charts = { version="0", git = "https://github.com/angular-rust/ux-charts.git" }
+# ux-animate = { version="0", git = "https://github.com/angular-rust/ux-animate.git" }
+
+ux-primitives = { version="0", path = "../material/ux-primitives" }
+ux-charts = { version="0", path = "../material/ux-charts" }
+ux-animate = { version="0", path = "../material/ux-animate" }
