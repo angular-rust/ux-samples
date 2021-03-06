@@ -7,3 +7,12 @@ edition = "2018"
 [dependencies]
 ux-primitives = "0.1"
 ux-animate = { version = "0.1", features = ["cairo"] }
+
+log = "0.4"
+png = "0.16"
+gio = { version = "0.9", features = ["v2_58"] }
+gtk = { version = "0.9", features = ["v3_22"] }
+cairo-rs = { version = "0.9", features = ["png"] }
+glib = { version="0.10", features = ["v2_58"] }
+gdk = { version="0.13", features = ["v3_22"] }
+gdk-pixbuf = "0.9"
