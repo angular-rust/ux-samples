@@ -10,7 +10,7 @@ extern crate log;
 extern crate glib;
 
 use ux_charts::*;
-use ux_primitives::datatable::*;
+use ux_dataflow::*;
 
 fn prepare() {
     let metadata = vec![

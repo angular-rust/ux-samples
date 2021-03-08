@@ -12,7 +12,7 @@ extern crate glib;
 // use std::any::Any;
 
 use ux_charts::*;
-use ux_primitives::datatable::*;
+use ux_dataflow::*;
 
 // let random = Random();
 
