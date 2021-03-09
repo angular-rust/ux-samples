@@ -25,10 +25,11 @@ members = [
 ]
 
 [patch.crates-io]
-ux-primitives = { version="0", git = "https://github.com/angular-rust/ux-primitives.git" }
-ux-charts = { version="0", git = "https://github.com/angular-rust/ux-charts.git" }
-ux-animate = { version="0", git = "https://github.com/angular-rust/ux-animate.git" }
+# ux-primitives = { version="0", git = "https://github.com/angular-rust/ux-primitives.git" }
+# ux-charts = { version="0", git = "https://github.com/angular-rust/ux-charts.git" }
+# ux-animate = { version="0", git = "https://github.com/angular-rust/ux-animate.git" }
 
-# ux-primitives = { version="0", path = "../material/ux-primitives" }
-# ux-charts = { version="0", path = "../material/ux-charts" }
-# ux-animate = { version="0", path = "../material/ux-animate" }
+ux-primitives = { version="0", path = "../material/ux-primitives" }
+ux-dataflow = { version="0", path = "../material/ux-dataflow" }
+ux-charts = { version="0", path = "../material/ux-charts" }
+ux-animate = { version="0", path = "../material/ux-animate" }

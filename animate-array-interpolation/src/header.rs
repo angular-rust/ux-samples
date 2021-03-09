@@ -9,8 +9,6 @@ impl Header {
         container.set_show_close_button(true);
         container.set_title(Some("Animate Array Interpolation Sample"));
 
-        Header {
-            container,
-        }
+        Header { container }
     }
 }

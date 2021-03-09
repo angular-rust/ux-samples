@@ -1,8 +1,4 @@
-use gdk::prelude::*;
-use gio::prelude::*;
-use glib::prelude::*;
 use gtk::prelude::*;
-
 use std::process;
 
 use super::header::Header;
@@ -26,7 +22,11 @@ impl App {
         let display = gdk::Display::get_default().unwrap();
         let screen = display.get_default_screen();
 
-        gtk::StyleContext::add_provider_for_screen(&screen, &provider, gtk::STYLE_PROVIDER_PRIORITY_USER);
+        gtk::StyleContext::add_provider_for_screen(
+            &screen,
+            &provider,
+            gtk::STYLE_PROVIDER_PRIORITY_USER,
+        );
 
         if let Err(err) = provider.load_from_data(CSS.as_bytes()) {
             println!("CSS ERR{}", err);
@@ -35,7 +35,6 @@ impl App {
         let window = Window::new();
         let header = Header::new();
 
-        window.widget.set_default_size(600, 350);
         window.widget.set_titlebar(Some(&header.container));
         window.widget.connect_delete_event(move |_, _| {
             gtk::main_quit();
