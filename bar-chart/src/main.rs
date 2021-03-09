@@ -14,6 +14,12 @@ extern crate glib;
 use ux_charts::*;
 use ux_dataflow::*;
 
+pub mod app;
+pub mod header;
+pub mod window;
+
+use app::App;
+
 // let random = Random();
 
 // i64 rand(i64 min, i64 max) => random.nextInt(max - min) + min;
@@ -279,15 +285,19 @@ fn draw(app: &gtk::Application, x_axis: Vec<i32>, y_axis: Vec<i32>) {
 }
 
 fn main() {
-    // Initilize the application with the default config
-    let application = gtk::Application::new(Some("com.andrei.gtk-line-chart"), Default::default())
-        .expect("Initialization failed...");
-    // The data axis we'll plot a line chart
-    let x_axis = vec![0, 1, 2, 3, 4, 5, 6, 8, 9];
-    let y_axis = vec![0, 3, 5, 4, 3, 6, 6, 7, 14];
+    // // Initilize the application with the default config
+    // let application = gtk::Application::new(Some("com.andrei.gtk-line-chart"), Default::default())
+    //     .expect("Initialization failed...");
+    // // The data axis we'll plot a line chart
+    // let x_axis = vec![0, 1, 2, 3, 4, 5, 6, 8, 9];
+    // let y_axis = vec![0, 3, 5, 4, 3, 6, 6, 7, 14];
 
-    application.connect_activate(move |app| {
-        draw(app, x_axis.clone(), y_axis.clone());
-    });
-    application.run(&args().collect::<Vec<_>>());
+    // application.connect_activate(move |app| {
+    //     draw(app, x_axis.clone(), y_axis.clone());
+    // });
+    // application.run(&args().collect::<Vec<_>>());
+
+    let app = App::new();
+    app.window.show_all();
+    gtk::main();
 }
