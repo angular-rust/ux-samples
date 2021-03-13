@@ -12,8 +12,8 @@ use gtk::prelude::*;
 
 // use gtk::ResponseType;
 
-// use ux_charts::*;
-use ux_dataflow::*;
+// use charts::*;
+use dataflow::*;
 
 fn create_stream() -> DataStream<'static, &'static str, i32> {
     let metadata = vec![
