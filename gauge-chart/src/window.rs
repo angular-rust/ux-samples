@@ -56,23 +56,23 @@ fn prepare() {
 
     //   let container = createContainer();
 
-    
+    // let options = {
+        //     "animation": {
+        //       "easing": (f64 t) {
+        //         t = 4 * t - 2;
+        //         return (t * t * t - t) / 12 + .5;
+        //       },
+        //       "onEnd": () {
+        //         changeDataButton.disabled = false;
+        //         insertRemoveRowButton.disabled = false;
+        //       }
+        //     },
+        //     "gaugeLabels": {"enabled": false},
+        //     "title": {"text": "Gauge Chart Demo"},
+        //   }
 
     // let chart = GaugeChart::new(Default::default());
-    //   chart.draw(table, {
-    //     "animation": {
-    //       "easing": (f64 t) {
-    //         t = 4 * t - 2;
-    //         return (t * t * t - t) / 12 + .5;
-    //       },
-    //       "onEnd": () {
-    //         changeDataButton.disabled = false;
-    //         insertRemoveRowButton.disabled = false;
-    //       }
-    //     },
-    //     "gaugeLabels": {"enabled": false},
-    //     "title": {"text": "Gauge Chart Demo"},
-    //   });
+    //   chart.draw(table);
 
     //   fn disableAllButtons() {
     //     changeDataButton.disabled = true;

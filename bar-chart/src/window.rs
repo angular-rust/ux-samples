@@ -31,23 +31,18 @@ use dataflow::*;
 fn create_stream() -> DataStream<'static, &'static str, i32> {
     let metadata = vec![
         Channel {
-            name: "Categories",
+            name: "Series 1",
             tag: 0,
             visible: true,
         },
         Channel {
-            name: "Long series name",
+            name: "Series 2",
             tag: 1,
             visible: true,
         },
         Channel {
-            name: "Series 2",
-            tag: 2,
-            visible: true,
-        },
-        Channel {
             name: "Series 3",
-            tag: 3,
+            tag: 2,
             visible: true,
         },
     ];
@@ -55,63 +50,63 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
     // Zero stream tag is allways metric
     let mut frames = vec![DataFrame {
         metric: "January",
-        data: [(1, 1), (2, 3), (3, 5)].iter().cloned().collect(),
+        data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
         metric: "February",
-        data: [(1, 3), (2, 4), (3, 6)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "March",
-        data: [(1, 4), (2, 3), (3, 1)].iter().cloned().collect(),
+        data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
     // let skip one stream flow
     frames.push(DataFrame {
         metric: "April",
-        data: [(2, 5), (3, 1)].iter().cloned().collect(),
+        data: [(1, 5), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "May",
-        data: [(1, 3), (2, 4), (3, 2)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "June",
-        data: [(1, 5), (2, 10), (3, 4)].iter().cloned().collect(),
+        data: [(0, 5), (1, 10), (2, 4)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "July",
-        data: [(1, 4), (2, 12), (3, 8)].iter().cloned().collect(),
+        data: [(0, 4), (1, 12), (2, 8)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "August",
-        data: [(1, 1), (2, 3), (3, 5)].iter().cloned().collect(),
+        data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "September",
-        data: [(1, 3), (2, 4), (3, 6)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "October",
-        data: [(1, 4), (2, 3), (3, 1)].iter().cloned().collect(),
+        data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "November",
-        data: [(2, 5), (3, 1)].iter().cloned().collect(),
+        data: [(1, 5), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "December",
-        data: [(1, 3), (2, 4), (3, 2)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     DataStream::new(metadata, frames)
@@ -130,28 +125,6 @@ fn prepare() {
     // document.body.append(insertRemoveRowButton);
 
     // let container = createContainer();
-
-    // let options = {
-    //   "animation": {
-    //     "onEnd": () {
-    //       changeDataButton.disabled = false;
-    //       insertRemoveColumnButton.disabled = false;
-    //       insertRemoveRowButton.disabled = false;
-    //     }
-    //   },
-    //   "series": {
-    //     "labels": {"enabled": true}
-    //   },
-    //   "xAxis": {
-    //     "crosshair": {"enabled": true},
-    //     "labels": {"maxRotation": 90, "minRotation": 0}
-    //   },
-    //   "yAxis": {"minValue": 0, "minInterval": 5},
-    //   "title": {"text": "Bar Chart Demo"},
-    //   "tooltip": {"valueFormatter": (value) => "$value units"}
-    // };
-
-
 
     // fn disableAllButtons() {
     //   changeDataButton.disabled = true;
@@ -219,12 +192,31 @@ impl Window {
         let x_axis = vec![0, 1, 2, 3, 4, 5, 6, 8, 9];
         let y_axis = vec![0, 3, 5, 4, 3, 6, 6, 7, 14];
 
-        let chart = BarChart::new(Default::default());
+        let mut options: BarChartOptions = Default::default();
+        options.channel.labels = Some(Default::default());
+        // options.x_axis.crosshair = Some(Default::default()); // enable crosshair
+        options.x_axis.labels.max_rotation = 90;
+        options.x_axis.labels.min_rotation = 0;
+        options.y_axis.min_value = Some(0);
+        options.y_axis.min_interval = Some(2.);
+        options.title.text = Some("Bar Chart Demo");
+
+        // TODO: extend options with 
+        //   "animation": {
+        //     "onEnd": () {
+        //       changeDataButton.disabled = false;
+        //       insertRemoveColumnButton.disabled = false;
+        //       insertRemoveRowButton.disabled = false;
+        //     }
+        //   },
+        //   "tooltip": {"valueFormatter": (value) => "$value units"}
+
+        let mut chart = BarChart::new(options);
         chart.set_stream(stream);
 
         drawing_area.connect_draw(move |area, cr| {
             let (rect, _) = area.get_allocated_size();
-            println!("Draw {} {}", rect.width, rect.height);
+            // println!("Draw {} {}", rect.width, rect.height);
 
             let size = (rect.width as f64, rect.height as f64);
 
@@ -233,8 +225,6 @@ impl Window {
             chart.resize(size.0, size.1);
 
             let ctx = CairoCanvas::new(cr); // overhead
-
-            chart.update(&ctx);
             chart.draw(&ctx);
 
             // Here we draw using the given Context

@@ -71,10 +71,7 @@ fn prepare() {
 
     // let container = createContainer();
 
-    
-
-    // let chart = PieChart::new(Default::default());
-    // chart.draw(table, {
+    // let options = {
     //   "animation": {
     //     "onEnd": () {
     //       changeDataButton.disabled = false;
@@ -88,7 +85,11 @@ fn prepare() {
     //     "startAngle": 90 + 10 * 360,
     //   },
     //   "title": {"text": "Pie Chart Demo"},
-    // });
+    // }
+    
+
+    // let chart = PieChart::new(Default::default());
+    // chart.draw(table);
 
     // fn disableAllButtons() {
     //   changeDataButton.disabled = true;
