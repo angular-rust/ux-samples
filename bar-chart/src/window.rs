@@ -49,64 +49,39 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
 
     // Zero stream tag is allways metric
     let mut frames = vec![DataFrame {
-        metric: "January",
+        metric: "Monday",
         data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
-        metric: "February",
+        metric: "Tuesday",
         data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "March",
+        metric: "Wednesday",
         data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
     // let skip one stream flow
     frames.push(DataFrame {
-        metric: "April",
+        metric: "Thursday",
         data: [(1, 5), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "May",
+        metric: "Friday",
         data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "June",
+        metric: "Saturday",
         data: [(0, 5), (1, 10), (2, 4)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "July",
+        metric: "Sunday",
         data: [(0, 4), (1, 12), (2, 8)].iter().cloned().collect(),
-    });
-
-    frames.push(DataFrame {
-        metric: "August",
-        data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
-    });
-
-    frames.push(DataFrame {
-        metric: "September",
-        data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
-    });
-
-    frames.push(DataFrame {
-        metric: "October",
-        data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
-    });
-
-    frames.push(DataFrame {
-        metric: "November",
-        data: [(1, 5), (2, 1)].iter().cloned().collect(),
-    });
-
-    frames.push(DataFrame {
-        metric: "December",
-        data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     DataStream::new(metadata, frames)
@@ -184,7 +159,7 @@ impl Window {
         let widget = gtk::Window::new(gtk::WindowType::Toplevel);
 
         let drawing_area = Box::new(gtk::DrawingArea::new)();
-        let default_size = (600.0, 400.0);
+        let default_size = (800.0, 400.0);
         let padding = 30.0;
 
         let stream = create_stream();
@@ -199,7 +174,7 @@ impl Window {
         options.x_axis.labels.min_rotation = 0;
         options.y_axis.min_value = Some(0);
         options.y_axis.min_interval = Some(2.);
-        options.title.text = Some("Bar Chart Demo");
+        // options.title.text = Some("Bar Chart Demo");
 
         // TODO: extend options with 
         //   "animation": {
