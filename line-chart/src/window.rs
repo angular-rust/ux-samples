@@ -144,7 +144,7 @@ impl Window {
         let mut options: LineChartOptions = Default::default();
         options.channel.labels = Some(Default::default());
         options.channel.fill_opacity = 0.25;
-        options.y_axis.min_interval = Some(2.);
+        options.yaxis.min_interval = Some(2.);
         // options.title.text = Some("Line Chart Demo");
 
         //   "animation": {

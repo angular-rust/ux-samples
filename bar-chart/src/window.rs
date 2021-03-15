@@ -153,11 +153,11 @@ impl Window {
 
         let mut options: BarChartOptions = Default::default();
         options.channel.labels = Some(Default::default());
-        // options.x_axis.crosshair = Some(Default::default()); // enable crosshair
-        options.x_axis.labels.max_rotation = 90;
-        options.x_axis.labels.min_rotation = 0;
-        options.y_axis.min_value = Some(0);
-        options.y_axis.min_interval = Some(2.);
+        // options.xaxis.crosshair = Some(Default::default()); // enable crosshair
+        options.xaxis.labels.max_rotation = 90;
+        options.xaxis.labels.min_rotation = 0;
+        options.yaxis.min_value = Some(0);
+        options.yaxis.min_interval = Some(2.);
         // options.title.text = Some("Bar Chart Demo");
 
         // TODO: extend options with
