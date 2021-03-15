@@ -11,6 +11,7 @@ ux-animate = { version = "0.1", features = ["cairo"] }
 ux-charts = { version = "0.1", features = ["cairo"] }
 
 log = "0.4"
+env_logger = "0.8"
 png = "0.16"
 gio = { version = "0.9", features = ["v2_58"] }
 gtk = { version = "0.9", features = ["v3_22"] }

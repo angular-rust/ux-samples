@@ -5,7 +5,7 @@ pub mod window;
 use app::App;
 
 fn main() {
-    // Initilize the application with the default config
+    env_logger::init();
     let app = App::new();
     app.window.show_all();
     gtk::main();
