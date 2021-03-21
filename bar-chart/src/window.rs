@@ -158,7 +158,7 @@ impl Window {
         options.xaxis.labels.min_rotation = 0;
         options.yaxis.min_value = Some(0);
         options.yaxis.min_interval = Some(2.);
-        // options.title.text = Some("Bar Chart Demo");
+        options.title.text = Some("Bar Chart Demo");
 
         // TODO: extend options with
         //   "animation": {
