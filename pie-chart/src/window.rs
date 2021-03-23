@@ -19,32 +19,32 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
 
     let mut frames = vec![DataFrame {
         metric: "Chrome",
-        data: [(1, 35)].iter().cloned().collect(),
+        data: [(0, 35)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
         metric: "Firefox",
-        data: [(1, 20)].iter().cloned().collect(),
+        data: [(0, 20)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "IE",
-        data: [(1, 30)].iter().cloned().collect(),
+        data: [(0, 30)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Opera",
-        data: [(1, 5)].iter().cloned().collect(),
+        data: [(0, 5)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Safari",
-        data: [(1, 8)].iter().cloned().collect(),
+        data: [(0, 8)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Other",
-        data: [(1, 2)].iter().cloned().collect(),
+        data: [(0, 2)].iter().cloned().collect(),
     });
 
     DataStream::new(metadata, frames)
@@ -108,7 +108,7 @@ impl Window {
         options.channel.labels.enabled = true;
         options.channel.start_angle = 90. + 10. * 360.;
         options.pie_hole = 0.5;
-        // options.title.text = Some("Pie Chart Demo");
+        options.title.text = Some("Pie Chart Demo");
 
         //   "animation": {
         //     "onEnd": () {

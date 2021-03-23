@@ -135,7 +135,7 @@ impl Window {
 
         let mut options: RadarChartOptions = Default::default();
         options.channel.labels = Some(Default::default());
-        // options.title.text = Some("Radar Chart Demo");
+        options.title.text = Some("Radar Chart Demo");
 
         //   "animation": {
         //     "onEnd": () {

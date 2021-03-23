@@ -19,17 +19,17 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
 
     let mut frames = vec![DataFrame {
         metric: "Memory",
-        data: [(1, 25)].iter().cloned().collect(),
+        data: [(0, 25)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
         metric: "CPU",
-        data: [(1, 75)].iter().cloned().collect(),
+        data: [(0, 75)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Disk",
-        data: [(1, 40)].iter().cloned().collect(),
+        data: [(0, 40)].iter().cloned().collect(),
     });
 
     DataStream::new(metadata, frames)
@@ -88,7 +88,7 @@ impl Window {
 
         let mut options: GaugeChartOptions = Default::default();
         options.labels = Some(Default::default());
-        // options.title.text = Some("Gauge Chart Demo");
+        options.title.text = Some("Gauge Chart Demo");
 
         //     "animation": {
         //       "easing": (f64 t) {

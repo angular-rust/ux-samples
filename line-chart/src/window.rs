@@ -6,23 +6,18 @@ use gtk::prelude::*;
 fn create_stream() -> DataStream<'static, &'static str, i32> {
     let metadata = vec![
         Channel {
-            name: "Categories",
+            name: "Series 1",
             tag: 0,
             visible: true,
         },
         Channel {
-            name: "Series 1",
+            name: "Series 2",
             tag: 1,
             visible: true,
         },
         Channel {
-            name: "Series 2",
-            tag: 2,
-            visible: true,
-        },
-        Channel {
             name: "Series 3",
-            tag: 3,
+            tag: 2,
             visible: true,
         },
     ];
@@ -30,37 +25,37 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
     // Zero stream tag is allways metric
     let mut frames = vec![DataFrame {
         metric: "Monday",
-        data: [(1, 1), (2, 3), (3, 5)].iter().cloned().collect(),
+        data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
         metric: "Tuesday",
-        data: [(1, 3), (2, 4), (3, 6)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Wednesday",
-        data: [(1, 4), (2, 3), (3, 1)].iter().cloned().collect(),
+        data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Thursday",
-        data: [(2, 5), (3, 1)].iter().cloned().collect(),
+        data: [(1, 5), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Friday",
-        data: [(1, 3), (2, 4), (3, 2)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Saturday",
-        data: [(1, 5), (2, 10), (3, 4)].iter().cloned().collect(),
+        data: [(0, 5), (1, 10), (2, 4)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Sunday",
-        data: [(1, 5), (2, 10), (3, 4)].iter().cloned().collect(),
+        data: [(0, 4), (1, 12), (2, 8)].iter().cloned().collect(),
     });
 
     DataStream::new(metadata, frames)
@@ -145,7 +140,7 @@ impl Window {
         options.channel.labels = Some(Default::default());
         options.channel.fill_opacity = 0.25;
         options.yaxis.min_interval = Some(2.);
-        // options.title.text = Some("Line Chart Demo");
+        options.title.text = Some("Line Chart Demo");
 
         //   "animation": {
         //     "onEnd": () {
