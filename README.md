@@ -17,8 +17,12 @@
 [rust-badge]: https://img.shields.io/badge/rustc-1.45-lightgrey.svg?style=flat-square
 [rust-url]: https://blog.rust-lang.org/2020/07/16/Rust-1.45.0.html
 
-Angular Rust is a high productivity, frontend web framework for the [Rust language](https://www.rust-lang.org/).
+Angular Rust is a high productivity, frontend desktop and web framework for the [Rust language](https://www.rust-lang.org/).
 
+## Dependencies
+
+You may need to install additional dependencies
+> sudo apt-get update && sudo apt-get install libclutter-1.0-dev libpango1.0-dev
 ## Community
 
 * [Gitter](https://gitter.im/angular_rust/community)

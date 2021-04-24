@@ -1,0 +1,11 @@
+[package]
+name = "simple-graphics"
+version = "0.1.0"
+authors = ["Victor Dudochkin <dudochkin.victor@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+log = "0.4"
+env_logger = "0.8"
+cairo-rs = { version = "0.9", features = ["png"] }
+ux-framework = "0.1.0"

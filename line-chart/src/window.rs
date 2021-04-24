@@ -22,7 +22,6 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
         },
     ];
 
-    // Zero stream tag is allways metric
     let mut frames = vec![DataFrame {
         metric: "Monday",
         data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
