@@ -7,8 +7,8 @@ edition = "2018"
 [dependencies]
 ux-primitives = "0.1"
 ux-dataflow = "0.1"
-ux-animate = { version = "0.1", features = ["cairo"] }
-ux-charts = { version = "0.1", features = ["cairo"] }
+ux-animate = "0.1"
+ux-charts = "0.1.2"
 
 log = "0.4"
 env_logger = "0.8"

@@ -6,7 +6,7 @@ edition = "2018"
 
 [dependencies]
 ux-primitives = "0.1"
-ux-animate = { version = "0.1", features = ["cairo"] }
+ux-animate = "0.1"
 
 log = "0.4"
 png = "0.16"

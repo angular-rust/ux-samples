@@ -1,7 +1,21 @@
 use animate::Canvas;
-use charts::{Chart, RadarChart, RadarChartOptions};
-use gtk::prelude::*;
+use charts::{BarChart, BarChartOptions, Chart};
 use dataflow::*;
+use gtk::prelude::*;
+
+// let random = Random();
+
+// i64 rand(i64 min, i64 max) => random.nextInt(max - min) + min;
+
+// fn createContainer() -> Element {
+// //   let e = DivElement()
+// //     ..style.height = "400px"
+// // //    ..style.width = "800px"
+// //     ..style.maxWidth = "100%"
+// //     ..style.marginBottom = "50px";
+// //   document.body.append(e);
+// //   return e;
+// }
 
 fn create_stream() -> DataStream<'static, &'static str, i32> {
     let metadata = vec![
@@ -11,8 +25,13 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
             visible: true,
         },
         Channel {
-            name: "New Series",
+            name: "Series 2",
             tag: 1,
+            visible: true,
+        },
+        Channel {
+            name: "Series 3",
+            tag: 2,
             visible: true,
         },
     ];
@@ -20,37 +39,38 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
     // Zero stream tag is allways metric
     let mut frames = vec![DataFrame {
         metric: "Monday",
-        data: [(0, 11), (1, 16)].iter().cloned().collect(),
+        data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
         metric: "Tuesday",
-        data: [(0, 19), (1, 15)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Wednesday",
-        data: [(0, 7), (1, 14)].iter().cloned().collect(),
+        data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
+    // let skip one stream flow
     frames.push(DataFrame {
         metric: "Thursday",
-        data: [(0, 17), (1, 12)].iter().cloned().collect(),
+        data: [(1, 5), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Friday",
-        data: [(0, 17), (1, 10)].iter().cloned().collect(),
+        data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Saturday",
-        data: [(0, 18), (1, 9)].iter().cloned().collect(),
+        data: [(0, 5), (1, 10), (2, 4)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
         metric: "Sunday",
-        data: [(0, 15), (1, 14)].iter().cloned().collect(),
+        data: [(0, 4), (1, 12), (2, 8)].iter().cloned().collect(),
     });
 
     DataStream::new(metadata, frames)
@@ -58,8 +78,6 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
 
 #[allow(dead_code)]
 fn prepare() {
-
-
     // let changeDataButton = ButtonElement()..text = "Change data";
     // document.body.append(changeDataButton);
 
@@ -80,7 +98,7 @@ fn prepare() {
     //   disableAllButtons();
     //   for (let row in table.rows) {
     //     for (let i = 1; i < table.columns.length; i++) {
-    //       row[i] = rand(5, 20);
+    //       row[i] = rand(2, 20);
     //     }
     //   }
     //   chart.update();
@@ -92,7 +110,7 @@ fn prepare() {
     //   if (insertColumn) {
     //     table.columns.insert(2, DataColumn("New series", num));
     //     for (let row in table.rows) {
-    //       row[2] = rand(5, 20);
+    //       row[2] = rand(2, 20);
     //     }
     //   } else {
     //     table.columns.removeAt(2);
@@ -105,9 +123,9 @@ fn prepare() {
     // insertRemoveRowButton.onClick.listen((_) {
     //   disableAllButtons();
     //   if (insertRow) {
-    //     let values = <Object>["New"];
+    //     let values = <dynamic>["New"];
     //     for (let i = 1; i < table.columns.length; i++) {
-    //       values.add(rand(5, 20));
+    //       values.add(rand(2, 20));
     //     }
     //     table.rows.insert(2, values);
     //   } else {
@@ -116,8 +134,8 @@ fn prepare() {
     //   insertRow = !insertRow;
     //   chart.update();
     // });
+    unimplemented!()
 }
-
 
 pub struct Window {
     pub widget: gtk::Window,
@@ -126,17 +144,23 @@ pub struct Window {
 impl Window {
     pub fn new() -> Self {
         let widget = gtk::Window::new(gtk::WindowType::Toplevel);
-        
+
         let drawing_area = Box::new(gtk::DrawingArea::new)();
         let default_size = (800.0, 400.0);
         // let padding = 30.0;
 
         let stream = create_stream();
 
-        let mut options: RadarChartOptions = Default::default();
+        let mut options: BarChartOptions = Default::default();
         options.channel.labels = Some(Default::default());
-        options.title.text = Some("Radar Chart Demo");
+        // options.xaxis.crosshair = Some(Default::default()); // enable crosshair
+        options.xaxis.labels.max_rotation = 90;
+        options.xaxis.labels.min_rotation = 0;
+        options.yaxis.min_value = Some(0);
+        options.yaxis.min_interval = Some(2.);
+        options.title.text = Some("Bar Chart Demo");
 
+        // TODO: extend options with
         //   "animation": {
         //     "onEnd": () {
         //       changeDataButton.disabled = false;
@@ -146,7 +170,7 @@ impl Window {
         //   },
         //   "tooltip": {"valueFormatter": (value) => "$value units"}
 
-        let mut chart = RadarChart::new(options);
+        let mut chart = BarChart::new(options);
         chart.set_stream(stream);
 
         drawing_area.connect_draw(move |area, cr| {
@@ -156,7 +180,7 @@ impl Window {
 
             chart.resize(size.0, size.1);
 
-            let ctx = Canvas::new(cr); // overhead
+            let ctx = CairoCanvas::new(cr); // overhead
             chart.draw(&ctx);
 
             Inhibit(false)
@@ -165,9 +189,13 @@ impl Window {
         widget.set_default_size(default_size.0 as i32, default_size.1 as i32);
         widget.add(&drawing_area);
 
-        Self {
-            widget,
-        }
+        // glib::timeout_add_local(1000, move || {
+        //     println!("timeout call");
+        //     drawing_area.queue_draw();
+        //     Continue(true) // Continue(false) - to stop
+        // });
+
+        Self { widget }
     }
 
     pub fn show_all(&self) {

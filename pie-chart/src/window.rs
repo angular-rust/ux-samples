@@ -1,4 +1,4 @@
-use animate::CairoCanvas;
+use animate::Canvas;
 use charts::{Chart, PieChart, PieChartOptions};
 use dataflow::*;
 use gtk::prelude::*;
@@ -127,7 +127,7 @@ impl Window {
 
             chart.resize(size.0, size.1);
 
-            let ctx = CairoCanvas::new(cr); // overhead
+            let ctx = Canvas::new(cr); // overhead
             chart.draw(&ctx);
 
             Inhibit(false)
