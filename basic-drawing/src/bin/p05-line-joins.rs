@@ -1,4 +1,4 @@
-use ux::prelude::*;
+use ux::{LineJoin, prelude::*};
 use ux::{Surface, Window};
 
 #[derive(Default, Application)]
@@ -11,7 +11,7 @@ impl Application {
         let app: Self = Default::default();
         app.window
             .set_window_size(512, 512)
-            .set_title("UX Framework - Lines")
+            .set_title("UX Framework - Line joins")
             .show()
             .connect_destroy(move |_win| Application::quit());
 
@@ -29,12 +29,18 @@ impl Application {
         surface.connect_draw(move |_widget, ctx, width, height| {
             ctx.clear_rect(0.0, 0.0, width as f64, height as f64);
 
-            let step = 255.0 / 10.0;
-            for idx in 0..10 {
-                let opacity = (idx as f64 * step ) as u8;
-                ctx.set_fill_color(color::BLUE_9.opacity( opacity)); // Fill color
-                ctx.fill_rect(50.0 * idx as f64, 20.0, 40.0, 40.0);
-            }
+            ctx.set_line_width(14.0);
+
+            ctx.set_stroke_color(color::TEAL_9);
+
+            ctx.set_line_join(LineJoin::Miter);
+            ctx.stroke_rect(30.0, 30.0, 100.0, 100.0);
+
+            ctx.set_line_join(LineJoin::Bevel);
+            ctx.stroke_rect(160.0, 30.0, 100.0, 100.0);
+
+            ctx.set_line_join(LineJoin::Round);
+            ctx.stroke_rect(100.0, 160.0, 100.0, 100.0);
 
             false
         });
