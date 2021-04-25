@@ -3,8 +3,8 @@ use cairo::{Extend, ImageSurface, SurfacePattern};
 use std::{f64::consts::PI, mem};
 use ux::prelude::*;
 use ux::{
-    Actor, ClickAction, ColorStop, Gradient, GradientType, LinearGradient, Pattern,
-    PatternExtend, RadialGradient, Surface, Window,
+    Actor, ClickAction, ColorStop, Gradient, GradientType, LinearGradient, Pattern, PatternExtend,
+    RadialGradient, Surface, Window,
 };
 
 #[derive(Default, Application)]
@@ -26,7 +26,7 @@ impl Application {
         let surface = Surface::new();
         surface.set_size(400.0, 400.0);
 
-        // we should also change surface content size to avoid distortion 
+        // we should also change surface content size to avoid distortion
         surface.set_content_size(400.0, 400.0);
         surface.set_position(56.0, 56.0);
 
@@ -34,10 +34,7 @@ impl Application {
 
         let blueweb = include_bytes!("redhand.png");
         let image_surface = ImageSurface::create_from_png(&mut &blueweb[..]).unwrap();
-        let pattern = Pattern::new(
-            PatternExtend::Repeat,
-            SurfacePattern::create(&image_surface),
-        );
+        let pattern = Pattern::new(PatternExtend::Repeat, &image_surface);
 
         surface.connect_draw(move |_widget, ctx, _, height| {
             ctx.set_fill_color(color::CYAN_9);
@@ -53,7 +50,7 @@ impl Application {
 
             gradient.add_color_stop(ColorStop::new(0.0, color::CYAN_9));
             gradient.add_color_stop(ColorStop::new(0.5, color::LIME_9));
-            gradient.add_color_stop(ColorStop::new(1.0, color::CYAN_0.transparency(0)));
+            gradient.add_color_stop(ColorStop::new(1.0, color::CYAN_0.opacity(0)));
             ctx.set_fill_gradient(&gradient);
             ctx.rect(0.0, 0.0, 200.0, height as f64);
             ctx.fill();
@@ -66,7 +63,7 @@ impl Application {
                 0.0,
                 height as f64 / 2.0,
             )));
-            gradient.add_color_stop(ColorStop::new(0.0, color::INDIGO_0.transparency(128)));
+            gradient.add_color_stop(ColorStop::new(0.0, color::INDIGO_0.opacity(128)));
             gradient.add_color_stop(ColorStop::new(1.0, color::ORANGE_9));
             ctx.set_fill_gradient(&gradient);
             ctx.rect(200.0, 0.0, 200.0, height as f64);
