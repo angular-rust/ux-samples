@@ -1,5 +1,5 @@
 [package]
-name = "gtk-bar-chart"
+name = "barchart-gtk-embed"
 version = "0.1.0"
 authors = ["Victor Dudochkin <dudochkin.victor@gmail.com>"]
 edition = "2018"

@@ -9,12 +9,7 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
             name: "Browser",
             tag: 0,
             visible: true,
-        },
-        Channel {
-            name: "Share",
-            tag: 1,
-            visible: true,
-        },
+        }
     ];
 
     let mut frames = vec![DataFrame {

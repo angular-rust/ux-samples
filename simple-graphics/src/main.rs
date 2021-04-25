@@ -98,6 +98,5 @@ impl Application {
 }
 
 fn main() {
-    env_logger::init();
     Application::run();
 }

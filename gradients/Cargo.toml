@@ -1,9 +1,8 @@
 [package]
-name = "simple-graphics"
+name = "gradients"
 version = "0.1.0"
 authors = ["Victor Dudochkin <dudochkin.victor@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-cairo-rs = { version = "0.9", features = ["png"] }
 ux-framework = "0.1.0"

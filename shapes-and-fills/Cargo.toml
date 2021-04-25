@@ -1,9 +1,9 @@
 [package]
-name = "simple-graphics"
+name = "shapes-and-fills"
 version = "0.1.0"
 authors = ["Victor Dudochkin <dudochkin.victor@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-cairo-rs = { version = "0.9", features = ["png"] }
+cairo-rs = "0.9"
 ux-framework = "0.1.0"
