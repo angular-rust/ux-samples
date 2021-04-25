@@ -1,4 +1,4 @@
-use ux::prelude::*;
+use ux::{LineCap, prelude::*};
 use ux::{Surface, Window};
 
 #[derive(Default, Application)]
@@ -11,7 +11,7 @@ impl Application {
         let app: Self = Default::default();
         app.window
             .set_window_size(512, 512)
-            .set_title("UX Framework - Lines")
+            .set_title("UX Framework - Line caps")
             .show()
             .connect_destroy(move |_win| Application::quit());
 
@@ -29,12 +29,44 @@ impl Application {
         surface.connect_draw(move |_widget, ctx, width, height| {
             ctx.clear_rect(0.0, 0.0, width as f64, height as f64);
 
-            let step = 255.0 / 10.0;
-            for idx in 0..10 {
-                let opacity = (idx as f64 * step ) as u8;
-                ctx.set_fill_color(color::BLUE_9.opacity( opacity)); // Fill color
-                ctx.fill_rect(50.0 * idx as f64, 20.0, 40.0, 40.0);
-            }
+            ctx.set_stroke_color(color::TEAL_9);
+            ctx.set_line_width(20.0);
+
+            // Draw lines
+            ctx.begin_path();
+            ctx.set_line_cap(LineCap::Butt);
+            ctx.move_to(30.0, 50.0);
+            ctx.line_to(150.0, 50.0);
+            ctx.stroke();
+
+            ctx.begin_path();
+            ctx.set_line_cap(LineCap::Round);
+            ctx.move_to(30.0, 90.0);
+            ctx.line_to(150.0, 90.0);
+            ctx.stroke();
+
+            ctx.begin_path();
+            ctx.set_line_cap(LineCap::Square);
+            ctx.move_to(30.0, 130.0);
+            ctx.line_to(150.0, 130.0);
+            ctx.stroke();
+
+            // Draw guides
+            ctx.set_line_cap(LineCap::Butt);
+            ctx.set_stroke_color(color::GRAY_3);
+            ctx.set_line_width(1.0);
+
+            ctx.begin_path();
+            ctx.move_to(30.0, 40.0);
+            ctx.line_to(30.0, 140.0);
+
+            ctx.move_to(150.0, 40.0);
+            ctx.line_to(150.0, 140.0);
+
+            ctx.move_to(160.0, 40.0);
+            ctx.line_to(160.0, 140.0);
+
+            ctx.stroke();
 
             false
         });
