@@ -29,12 +29,32 @@ impl Application {
         surface.connect_draw(move |_widget, ctx, width, height| {
             ctx.clear_rect(0.0, 0.0, width as f64, height as f64);
 
-            let step = 255.0 / 10.0;
-            for idx in 0..10 {
-                let opacity = (idx as f64 * step ) as u8;
-                ctx.set_fill_color(color::BLUE_9.opacity( opacity)); // Fill color
-                ctx.fill_rect(50.0 * idx as f64, 20.0, 40.0, 40.0);
-            }
+            ctx.set_stroke_color(color::TEAL_9);
+            ctx.set_line_width(20.0);
+
+            ctx.begin_path();
+            let dashes = [4.0, 21.0, 2.0];
+            ctx.set_line_dash(dashes.to_vec());
+            ctx.set_line_dash_offset(0.0);
+            ctx.move_to(40.0, 30.0);
+            ctx.line_to(200.0, 30.0);
+            ctx.stroke();
+
+            ctx.begin_path();
+            let dashes = [14.0, 6.0];
+            ctx.set_line_dash(dashes.to_vec());
+            ctx.set_line_dash_offset(1.0);
+            ctx.move_to(40.0, 60.0);
+            ctx.line_to(200.0, 60.0);
+            ctx.stroke();
+
+            ctx.begin_path();
+            let dashes = [1.0];
+            ctx.set_line_dash(dashes.to_vec());
+            ctx.set_line_dash_offset(0.0);
+            ctx.move_to(40.0, 90.0);
+            ctx.line_to(200.0, 90.0);
+            ctx.stroke();
 
             false
         });
