@@ -1,8 +1,7 @@
 use dataflow::*;
 use ux::prelude::*;
 use ux::{ClickAction, Surface, Window};
-
-use charts::{BarChart, BarChartOptions, Chart};
+use charts::{LineChart, LineChartOptions, Chart};
 
 fn create_stream() -> DataStream<'static, &'static str, i32> {
     let metadata = vec![
@@ -38,7 +37,6 @@ fn create_stream() -> DataStream<'static, &'static str, i32> {
         data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
-    // let skip one stream flow
     frames.push(DataFrame {
         metric: "Thursday",
         data: [(1, 5), (2, 1)].iter().cloned().collect(),
@@ -72,7 +70,7 @@ impl Application {
         let app: Self = Default::default();
         app.window
             .set_window_size(800, 400)
-            .set_title("UX Framework - BarChart")
+            .set_title("UX Framework - LineChart")
             .show()
             .connect_destroy(move |_win| Application::quit());
 
@@ -84,15 +82,13 @@ impl Application {
 
         app.window.set_child(&surface);
 
-        let mut options: BarChartOptions = Default::default();
+        let mut options: LineChartOptions = Default::default();
         options.channel.labels = Some(Default::default());
-        options.xaxis.labels.max_rotation = 90;
-        options.xaxis.labels.min_rotation = 0;
-        options.yaxis.min_value = Some(0);
+        options.channel.fill_opacity = 0.25;
         options.yaxis.min_interval = Some(2.);
-        options.title.text = Some("Bar Chart Demo");
+        options.title.text = Some("Line Chart Demo");
 
-        let mut chart = BarChart::new(options);
+        let mut chart = LineChart::new(options);
 
         let stream = create_stream();
         chart.set_stream(stream);
