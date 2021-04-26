@@ -1,5 +1,11 @@
+use std::{cell::RefCell, rc::Rc};
 use ux::prelude::*;
-use ux::{Surface, Window};
+use ux::{ClickAction, Point, Surface, Window};
+
+#[derive(Default)]
+struct Glob {
+    coords: Vec<Point<f32>>,
+}
 
 #[derive(Default, Application)]
 struct Application {
@@ -26,17 +32,57 @@ impl Application {
 
         app.window.set_child(&surface);
 
-        surface.connect_draw(move |_widget, ctx, width, height| {
-            ctx.clear_rect(0.0, 0.0, width as f64, height as f64);
+        let glob = Rc::new(RefCell::new(Glob::default()));
 
-            let step = 255.0 / 10.0;
-            for idx in 0..10 {
-                let opacity = (idx as f64 * step ) as u8;
-                ctx.set_fill_color(color::BLUE_9.opacity( opacity)); // Fill color
-                ctx.fill_rect(50.0 * idx as f64, 20.0, 40.0, 40.0);
+        let state = glob.clone();
+        surface.connect_draw(move |_widget, ctx, width, height| {
+
+            ctx.set_fill_color(color::GRAY_3);
+            ctx.fill_rect(0.0, 0.0, width as f64, height as f64);
+            
+            ctx.set_stroke_color(color::TEAL_9);
+            ctx.set_line_width(3.0);
+
+            let mut state = state.borrow_mut();
+            ctx.begin_path();
+
+            let count = state.coords.len();
+            for idx in 0..count {
+                for jdx in 0..count {
+                    let point = state.coords.get(idx).unwrap();
+                    ctx.move_to(point.x as f64, point.y as f64);
+
+                    let point = state.coords.get(jdx).unwrap();
+                    ctx.line_to(point.x as f64, point.y as f64);
+                }
             }
 
+            ctx.stroke();
+
+            state.coords.clear();
             false
+        });
+
+        let action = ClickAction::new();
+        surface.add_action(&action);
+        surface.set_reactive(true);
+
+        let state = glob;
+        action.connect_clicked(move |action, actor| {
+            match action.get_button() {
+                1 => {
+                    // Left button click
+                    let (screen_x, screen_y) = action.get_coords();
+                    let (actor_x, actor_y) = actor.get_position();
+                    let mut state = state.borrow_mut();
+                    state.coords.push(Point::new(screen_x - actor_x, screen_y - actor_y));
+                }
+                3 => {
+                    // Right button click
+                    surface.invalidate()
+                }
+                _ => {}
+            }
         });
 
         app
@@ -46,4 +92,3 @@ impl Application {
 fn main() {
     Application::run();
 }
-
