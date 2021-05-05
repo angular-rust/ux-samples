@@ -3,52 +3,52 @@ use dataflow::*;
 use ux::prelude::*;
 use ux::{ClickAction, Surface, Window};
 
-fn create_stream() -> DataStream<'static, &'static str, i32> {
+fn create_stream() -> DataStream<String, i32> {
     let metadata = vec![
         Channel {
-            name: "Series 1",
+            name: "Series 1".into(),
             tag: 0,
             visible: true,
         },
         Channel {
-            name: "New Series",
+            name: "New Series".into(),
             tag: 1,
             visible: true,
         },
     ];
 
-    let mut frames = vec![DataFrame {
-        metric: "Monday",
+    let mut frames: Vec<DataFrame<String, i32>> = vec![DataFrame {
+        metric: "Monday".into(),
         data: [(0, 11), (1, 16)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
-        metric: "Tuesday",
+        metric: "Tuesday".into(),
         data: [(0, 19), (1, 15)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Wednesday",
+        metric: "Wednesday".into(),
         data: [(0, 7), (1, 14)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Thursday",
+        metric: "Thursday".into(),
         data: [(0, 17), (1, 12)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Friday",
+        metric: "Friday".into(),
         data: [(0, 17), (1, 10)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Saturday",
+        metric: "Saturday".into(),
         data: [(0, 18), (1, 9)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Sunday",
+        metric: "Sunday".into(),
         data: [(0, 15), (1, 14)].iter().cloned().collect(),
     });
 
@@ -79,7 +79,7 @@ impl Application {
 
         let mut options: RadarChartOptions = Default::default();
         options.channel.labels = Some(Default::default());
-        options.title.text = Some("Radar Chart Demo");
+        options.title.text = Some("Radar Chart Demo".into());
 
         let mut chart = RadarChart::new(options);
 
