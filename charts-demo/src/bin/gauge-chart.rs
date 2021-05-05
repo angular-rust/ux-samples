@@ -3,32 +3,32 @@ use dataflow::*;
 use ux::prelude::*;
 use ux::{ClickAction, Surface, Window};
 
-fn create_stream() -> DataStream<'static, &'static str, i32> {
+fn create_stream() -> DataStream<String, i32> {
     let metadata = vec![
         Channel {
-            name: "Browser",
+            name: "Browser".into(),
             tag: 0,
             visible: true,
         },
         Channel {
-            name: "Share",
+            name: "Share".into(),
             tag: 1,
             visible: true,
         },
     ];
 
-    let mut frames = vec![DataFrame {
-        metric: "Memory",
+    let mut frames: Vec<DataFrame<String, i32>> = vec![DataFrame {
+        metric: "Memory".into(),
         data: [(0, 25)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
-        metric: "CPU",
+        metric: "CPU".into(),
         data: [(0, 75)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Disk",
+        metric: "Disk".into(),
         data: [(0, 40)].iter().cloned().collect(),
     });
 
@@ -59,7 +59,7 @@ impl Application {
 
         let mut options: GaugeChartOptions = Default::default();
         options.labels = Some(Default::default());
-        options.title.text = Some("Gauge Chart Demo");
+        options.title.text = Some("Gauge Chart Demo".into());
 
         let mut chart = GaugeChart::new(options);
 

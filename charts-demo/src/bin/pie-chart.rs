@@ -3,42 +3,42 @@ use dataflow::*;
 use ux::prelude::*;
 use ux::{ClickAction, Surface, Window};
 
-fn create_stream() -> DataStream<'static, &'static str, i32> {
+fn create_stream() -> DataStream<String, i32> {
     let metadata = vec![
         Channel {
-            name: "Browser",
+            name: "Browser".into(),
             tag: 0,
             visible: true,
         }
     ];
 
-    let mut frames = vec![DataFrame {
-        metric: "Chrome",
+    let mut frames: Vec<DataFrame<String, i32>> = vec![DataFrame {
+        metric: "Chrome".into(),
         data: [(0, 35)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
-        metric: "Firefox",
+        metric: "Firefox".into(),
         data: [(0, 20)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "IE",
+        metric: "IE".into(),
         data: [(0, 30)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Opera",
+        metric: "Opera".into(),
         data: [(0, 5)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Safari",
+        metric: "Safari".into(),
         data: [(0, 8)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Other",
+        metric: "Other".into(),
         data: [(0, 2)].iter().cloned().collect(),
     });
 
@@ -73,7 +73,7 @@ impl Application {
         options.channel.labels.enabled = true;
         options.channel.start_angle = 90. + 10. * 360.;
         options.pie_hole = 0.5;
-        options.title.text = Some("Pie Chart Demo");
+        options.title.text = Some("Pie Chart Demo".into());
 
         let mut chart = PieChart::new(options);
 

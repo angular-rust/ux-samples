@@ -3,58 +3,58 @@ use dataflow::*;
 use ux::prelude::*;
 use ux::{ClickAction, Surface, Window};
 
-fn create_stream() -> DataStream<'static, &'static str, i32> {
+fn create_stream() -> DataStream<String, i32> {
     let metadata = vec![
         Channel {
-            name: "Series 1",
+            name: "Series 1".into(),
             tag: 0,
             visible: true,
         },
         Channel {
-            name: "Series 2",
+            name: "Series 2".into(),
             tag: 1,
             visible: true,
         },
         Channel {
-            name: "Series 3",
+            name: "Series 3".into(),
             tag: 2,
             visible: true,
         },
     ];
 
-    let mut frames = vec![DataFrame {
-        metric: "Monday",
+    let mut frames: Vec<DataFrame<String, i32>> = vec![DataFrame {
+        metric: "Monday".into(),
         data: [(0, 1), (1, 3), (2, 5)].iter().cloned().collect(),
     }];
 
     frames.push(DataFrame {
-        metric: "Tuesday",
+        metric: "Tuesday".into(),
         data: [(0, 3), (1, 4), (2, 6)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Wednesday",
+        metric: "Wednesday".into(),
         data: [(0, 4), (1, 3), (2, 1)].iter().cloned().collect(),
     });
 
     // let skip one stream flow
     frames.push(DataFrame {
-        metric: "Thursday",
+        metric: "Thursday".into(),
         data: [(1, 5), (2, 1)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Friday",
+        metric: "Friday".into(),
         data: [(0, 3), (1, 4), (2, 2)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Saturday",
+        metric: "Saturday".into(),
         data: [(0, 5), (1, 10), (2, 4)].iter().cloned().collect(),
     });
 
     frames.push(DataFrame {
-        metric: "Sunday",
+        metric: "Sunday".into(),
         data: [(0, 4), (1, 12), (2, 8)].iter().cloned().collect(),
     });
 
@@ -89,7 +89,7 @@ impl Application {
         options.xaxis.labels.min_rotation = 0;
         options.yaxis.min_value = Some(0);
         options.yaxis.min_interval = Some(2.);
-        options.title.text = Some("Bar Chart Demo");
+        options.title.text = Some("Bar Chart Demo".into());
 
         let mut chart = BarChart::new(options);
 
